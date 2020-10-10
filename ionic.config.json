@@ -1,0 +1,7 @@
+{
+  "name": "toto-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
