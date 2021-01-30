@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>T-Link</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon slot="start" name="notifications-outline"></ion-icon>
+            </ion-button>
+            <ion-button>
+                <ion-icon slot="start" name="chatbox-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="full">
+    <ion-app>
+        <ion-split-pane contentId="main-content">
+            <ion-menu contentId="main-content" type="overlay">
+                <ion-content>
+                    <div class="profil">
+                        <div class="profil-content">
+                            <ion-avatar class="avatar">
+                                <ion-img *ngIf="user" [src]="user.data.photo || './assets/img/default-user.png' "></ion-img>
+                            </ion-avatar>
+                        </div>
+                        <ion-row class="ion-justify-content-center">
+                            <ion-label color="light" *ngIf="user">{{ user.data.nom }} {{ user.data.prenom }}</ion-label>
+                        </ion-row>
+                    </div>
+                    <ion-list id="inbox-list">
+
+                        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+                            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+                                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                                <ion-label>{{ p.title }}</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+
+                    </ion-list>
+                    <ion-list>
+                        <ion-item button lines="none" (click)="onLogout()">
+                            <ion-icon color="danger" slot="start" name="log-out-outline"></ion-icon>
+                            <ion-label color="danger">Deconnexion</ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-menu>
+            <ion-router-outlet id="main-content"></ion-router-outlet>
+        </ion-split-pane>
+    </ion-app>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-title color="primary">Copyright TOTO-Company | Developed By ENNA-Group</ion-title>
+    </ion-toolbar>
+</ion-footer>

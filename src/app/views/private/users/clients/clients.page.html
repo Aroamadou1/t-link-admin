@@ -1,0 +1,44 @@
+<ion-content>
+    <ion-card>
+        <ion-list>
+            <ion-item *ngFor="let item of data">
+                <ion-avatar slot="start">
+                    <img [src]="item.data.photo || './assets/img/default-user.png'" />
+                </ion-avatar>
+                <ion-label color="primary"> {{ item.data.nom }} {{ item.data.prenom }}
+                    <!-- <ion-text color="dark">
+                        <p>{{ item.data.phoneNumber }}</p>
+                    </ion-text> -->
+                </ion-label>
+                <ion-label color="dark">
+                    {{ item.data.pseudo }}
+                </ion-label>
+
+                <ion-label color="dark">
+                    {{ item.data.phoneNumber }}
+                </ion-label>
+
+                <ion-buttons slot="end">
+                    <ion-button (click)="onShow(item.id)">
+                        <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+                    </ion-button>
+                    <!-- <ion-button color="warning" (click)="onEdit(item.id)">
+                        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                    <ion-button color="danger" (click)="onDelete(item.id)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <!-- 
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="onAdd()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab> -->
+
+</ion-content>

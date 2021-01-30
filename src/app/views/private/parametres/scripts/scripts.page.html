@@ -1,0 +1,42 @@
+<ion-content>
+    <ion-row>
+        <ion-col size="12">
+            <ion-card>
+                <ion-list>
+
+                    <ion-list-header>
+                        <ion-label>Réseaux</ion-label>
+                        <ion-button (click)="onAddNetwork()">Ajouter</ion-button>
+                    </ion-list-header>
+
+                    <ion-item *ngFor="let item of networks">
+                        <ion-avatar slot="start">
+                            <img [src]="item.data.photo" />
+                        </ion-avatar>
+                        <ion-label color="primary"> {{ item.data.displayName }}
+                            <!-- <ion-text color="dark">
+                        <p>{{ item.data.phoneNumber }}</p>
+                    </ion-text> -->
+                        </ion-label>
+
+                        <ion-label color="dark">
+                            {{ item.data.countryCode }}
+                        </ion-label>
+
+                        <ion-buttons slot="end">
+                            <ion-button (click)="onShow(item.id)">
+                                <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button color="warning" (click)="onEditNetwork(item.id)">
+                                <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button color="danger" (click)="onDeleteNetwork(item.id)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

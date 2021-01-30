@@ -1,0 +1,38 @@
+<ion-content>
+    <ion-row>
+        <ion-col size="12">
+            <ion-card>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Listes des codes USSD</ion-label>
+                        <ion-button (click)="onAddScript()">Ajouter</ion-button>
+                    </ion-list-header>
+
+                    <ion-item *ngFor="let item of scripts">
+                        <ion-icon slot="start" [color]="item.data.color" [name]="item.data.icon"></ion-icon>
+                        <ion-label color="primary"> {{ item.data.nom }}
+                            <!-- <ion-text color="dark">
+                  <p>{{ item.data.phoneNumber }}</p>
+              </ion-text> -->
+                        </ion-label>
+                        <ion-label color="dark">
+                            {{ item.data.code }}
+                        </ion-label>
+
+                        <ion-buttons slot="end">
+                            <!-- <ion-button (click)="onShow(item.id)">
+                          <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+                      </ion-button> -->
+                            <ion-button color="warning" (click)="onEditScript(item.id)">
+                                <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button color="danger" (click)="onDeleteScript(item.id)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

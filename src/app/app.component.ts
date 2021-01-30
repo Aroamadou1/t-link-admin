@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ApiFirebaseService, DataFirestoreService, FCMService, FirebaseEmailAuthService } from './services';
+import { Plugins } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -10,60 +12,73 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
+ 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private auth: FirebaseEmailAuthService,
+    private api: ApiFirebaseService,
+    private router: Router
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.router.navigate(['/']);
+      this.auth.authState().subscribe(
+        user => {
+          console.log(user);
+          if (user){
+            this.loadData(user.uid);
+            this.router.navigate(['private']);
+          }
+        }
+      )
     });
   }
 
+  loadData(uid: string) {
+    const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
+    //fcm key
+    if (isPushNotificationsAvailable) FCMService.loadKey();
+    
+
+    // auth user 
+    DataFirestoreService.user = this.api.getById('admins', uid);
+
+    //admins
+    DataFirestoreService.admins = this.api.get('admins');
+
+
+    //clients
+    DataFirestoreService.clients = this.api.get('clients');
+
+    //coursiers
+    DataFirestoreService.coursiers = this.api.get('coursiers');
+
+    //livraisons
+    DataFirestoreService.livraisons = this.api.get('livraisons', (ref) => ref.orderBy('createdAt', 'desc').limit(10));
+  
+    //reseaux
+    DataFirestoreService.networks = this.api.get('networks');
+
+    //scripts
+    DataFirestoreService.scripts = this.api.get('scripts');
+
+    //categories
+    DataFirestoreService.categories = this.api.get('categories');
+
+    //poids
+    DataFirestoreService.poids = this.api.get('poids');
+
+     //distances
+     DataFirestoreService.distances = this.api.get('distances');
+
+      //tailles
+    DataFirestoreService.tailles = this.api.get('tailles');
+  }
+
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+    
   }
 }

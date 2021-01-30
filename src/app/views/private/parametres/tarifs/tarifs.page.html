@@ -1,0 +1,251 @@
+<ion-content>
+    <ion-row>
+        <ion-col size="6">
+            <ion-card>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Tarifs par rapport au distance</ion-label>
+                    </ion-list-header>
+                    <div *ngIf="distances.length>0">
+                        <ion-item>
+                            <ion-label>Premier kilomètre</ion-label>
+                            <ion-label> {{ distances[0].data.premierKilometre | number }} F CFA</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeleteCategorie()">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Prix/kilomètre</ion-label>
+                            <ion-label> {{ distances[0].data.montant | number }} F CFA</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeleteCategorie()">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                    </div>
+                </ion-list>
+
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button>
+                        <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-card>
+        </ion-col>
+        <ion-col size="6">
+            <ion-card>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Tarifs par rapport à la taille</ion-label>
+                    </ion-list-header>
+                    <div *ngIf="tailles.length>0">
+                        <ion-item>
+                            <ion-label>Moins d'un mètre</ion-label>
+                            <ion-label> tarif x {{ tailles[0].data.quotientMoins | number }}</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeleteCategorie()">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Plus d'un mètre</ion-label>
+                            <ion-label> tarif x {{ tailles[0].data.quotientPlus | number }}</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeleteCategorie()">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                    </div>
+
+                </ion-list>
+
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button>
+                        <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-card>
+        </ion-col>
+        <ion-col size="6">
+            <ion-card>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Type de colis</ion-label>
+                        <ion-button (click)="setNewcatategorie()">
+                            <ion-icon *ngIf="!newCat" slot="icon-only" name="add-outline"></ion-icon>
+                            <ion-icon *ngIf="newCat" slot="icon-only" name="refresh-outline"></ion-icon>
+                        </ion-button>
+                    </ion-list-header>
+
+                    <ion-row *ngIf="newCat">
+                        <ion-col size="5">
+                            <ion-item>
+                                <ion-input type="text" [(ngModel)]="newCat.nom" placeholder="Type"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="4">
+                            <ion-item>
+                                <ion-input type="number" [(ngModel)]="newCat.montant" placeholder="Prix"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-button size="small" color="success" (click)="onAddCategorie()">
+                                <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button size="small" color="danger" (click)="newCat=null">
+                                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+
+                    <div *ngFor="let item of categories">
+                        <ion-item *ngIf="!item.editing">
+                            <ion-label>{{ item.data.nom }}</ion-label>
+                            <ion-label> {{ item.data.montant | number }} F CFA</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeleteCategorie(item.id)">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                        <ion-row *ngIf="item.editing">
+                            <ion-col size="5">
+                                <ion-item>
+                                    <ion-input type="text" [(ngModel)]="item.data.nom" placeholder="Type"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="4">
+                                <ion-item>
+                                    <ion-input type="number" [(ngModel)]="item.data.montant" placeholder="Prix"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="3">
+                                <ion-button size="small" color="success" (click)="onUpdateCategorie(item.id, item.data)">
+                                    <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button size="small" color="danger" (click)="item.editing=false">
+                                    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+
+                    <ion-row *ngIf="categories.length === 0" class="ion-padding ion-justify-content-center">
+                        <ion-text class="ion-text-justify" color="danger">
+                            <p>Pas de catégories de colis!</p>
+                        </ion-text>
+                    </ion-row>
+
+
+                </ion-list>
+            </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+            <ion-card>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Tarifs par rapport au poids</ion-label>
+                        <ion-button (click)="setNewPoids()">
+                            <ion-icon *ngIf="!newPoids" slot="icon-only" name="add-outline"></ion-icon>
+                            <ion-icon *ngIf="newPoids" slot="icon-only" name="refresh-outline"></ion-icon>
+                        </ion-button>
+                    </ion-list-header>
+
+                    <ion-row *ngIf="newPoids">
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-input type="text" [(ngModel)]="newPoids.borneInf" placeholder="Inf"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-input type="text" [(ngModel)]="newPoids.borneSup" placeholder="Sup"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-input type="number" [(ngModel)]="newPoids.montant" placeholder="Prix"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-button size="small" color="success" (click)="onAddPoids()">
+                                <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button size="small" color="danger" (click)="newPoids=null">
+                                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+
+                    <div *ngFor="let item of poids">
+                        <ion-item *ngIf="!item.editing">
+                            <ion-label>{{ item.data.borneInf }} - {{ item.data.borneSup }} Kg</ion-label>
+                            <ion-label> {{ item.data.montant | number }} F CFA</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button color="warning" (click)="item.editing=true">
+                                    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button color="danger" (click)="onDeletePoids(item.id)">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-item>
+                        <ion-row *ngIf="item.editing">
+                            <ion-col size="3">
+                                <ion-item>
+                                    <ion-input type="text" [(ngModel)]="item.data.borneInf" placeholder="Type"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="3">
+                                <ion-item>
+                                    <ion-input type="text" [(ngModel)]="item.data.borneSup" placeholder="Type"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="3">
+                                <ion-item>
+                                    <ion-input type="number" [(ngModel)]="item.data.montant" placeholder="Prix"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="3">
+                                <ion-button size="small" color="success" (click)="onUpdatePoids(item.id, item.data)">
+                                    <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button size="small" color="danger" (click)="item.editing=false">
+                                    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+
+                    <ion-row *ngIf="poids.length === 0" class="ion-padding ion-justify-content-center">
+                        <ion-text class="ion-text-justify" color="danger">
+                            <p>Pas de tarifs de poids!</p>
+                        </ion-text>
+                    </ion-row>
+                </ion-list>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

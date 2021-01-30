@@ -1,0 +1,86 @@
+<ion-content>
+    <ion-list class="ion-padding">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Nom
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="nom" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Icone
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="icon" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Couleur
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="color" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Code </ion-label>
+                </ion-col>
+                :
+                <ion-textarea formControlName="code"></ion-textarea>
+            </ion-item>
+
+            <ion-list>
+                <ion-list-header>
+                    <ion-label>Labels</ion-label>
+                    <ion-button (click)="onAddLabel()">Ajouter</ion-button>
+                </ion-list-header>
+                <div formArrayName="labels" *ngFor="let item of labels.controls; let i = index">
+                    <ion-row [formGroupName]="i">
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-select formControlName="type" placeholder="type">
+                                    <ion-select-option value="text">Texte</ion-select-option>
+                                    <ion-select-option value="number">Chiffre</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-input formControlName="nom" placeholder="nom"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-item>
+                                <ion-checkbox slot="end" formControlName="scan"></ion-checkbox>
+                                <ion-label>Scan</ion-label>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-button color="danger" (click)="onRemoveLabel(i)" expand="block" fill="clear" shape="round">
+                                <ion-icon slot="start" name="close-outline"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </div>
+
+            </ion-list>
+
+            <ion-row class="ion-justify-content-center ion-margin-top">
+                <ion-button type="reset" color="danger" shape="round">
+                    Reset
+                </ion-button>
+                <ion-button type="submit" color="success" shape="round">
+                    Valider
+                </ion-button>
+            </ion-row>
+
+        </form>
+    </ion-list>
+</ion-content>

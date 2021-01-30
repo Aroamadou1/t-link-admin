@@ -1,0 +1,89 @@
+<ion-content>
+    <ion-row class="ion-justify-content-center">
+        <div class="profil">
+            <div class="profil-content">
+                <ion-avatar class="avatar">
+                    <ion-img [src]="newPhoto"></ion-img>
+                    <input type="file" (change)="setBlob($event)" accept=".png,.jpg" hidden #fileInput/>
+                </ion-avatar>
+                <!-- <progress max="100" [value]="(uploadProgress | async)"></progress> -->
+            </div>
+            <ion-row class="ion-justify-content-center">
+                <ion-buttons>
+                    <ion-button color="warning" (click)="fileInput.click()">
+                        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+                    </ion-button>
+                    <ion-button color="danger" (click)="onDeletePhoto()">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-row>
+
+        </div>
+    </ion-row>
+    <ion-list class="ion-padding">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Mcc
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="mcc" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Mnc
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="mnc" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Carrière
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="carrierName" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Couleur
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="color" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">DisplayName </ion-label>
+                </ion-col>
+                :
+                <ion-input formControlName="displayName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-col size="3">
+                    <ion-label color="primary">Pays
+                        <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                </ion-col>
+                :
+                <ion-input type="text" formControlName="countryCode" required></ion-input>
+            </ion-item>
+            <ion-row class="ion-justify-content-center ion-margin-top">
+                <ion-button type="reset" color="danger" shape="round">
+                    Reset
+                </ion-button>
+                <ion-button type="submit" color="success" shape="round">
+                    Valider
+                </ion-button>
+            </ion-row>
+
+        </form>
+    </ion-list>
+</ion-content>

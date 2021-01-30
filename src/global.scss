@@ -9,18 +9,84 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+ion-split-pane {
+    // --border: 1px solid;
+    --side-max-width: 350px;
+    --side-min-width: 100px;
+    --side-width: 250px;
+}
+
+// ion-content.full {
+//     --background: url(./assets/img/mobile-bg.png) no-repeat top center / cover !important;
+// }
+// ion-content {
+//     --background: transparent;
+// }
+ion-item {
+    --background: transparent !important;
+}
+
+ion-card {
+    --background: #ffffff91 !important;
+}
+
+ion-list {
+    background: transparent !important;
+}
+
+ion-toolbar {
+    --background: transparent !important;
+    --ion-color-base: transparent !important;
+}
+
+ion-card {
+    --background: rgba(255, 255, 255, 0.452) !important;
+}
+
+ion-item {
+    --background: transparent !important;
+}
+
+ion-list {
+    background: transparent !important;
+}
+
+.table {
+    color: var(--ion-color-primary) !important;
+    ion-row:nth-child(even) {
+        // background-color: var(--ion-color-medium);
+    }
+    ion-row:nth-child(odd) {
+        background-color: var(--ion-color-light);
+    }
+}
+
+ion-tab-button {
+    --color-selected: var(--ion-color-danger);
+    ;
+}
+
+ion-list {
+     :last-child {
+        --border-style: none !important;
+    }
+}

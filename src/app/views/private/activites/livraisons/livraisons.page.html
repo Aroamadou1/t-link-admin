@@ -1,0 +1,41 @@
+<ion-content>
+    <ion-card>
+        <ion-list>
+            <ion-item *ngFor="let item of livraisons" (click)="onShow(item.id)">
+                <ion-avatar slot="start">
+                    <img [src]="item.data.colis.photo" />
+                </ion-avatar>
+                <ion-label color="primary"> {{ item.data.colis.categorie }} {{ item.data.colis.poids }}
+                    <!-- <ion-text color="dark">
+                      <p>{{ item.data.phoneNumber }}</p>
+                  </ion-text> -->
+                </ion-label>
+                <ion-label color="dark">
+                    {{ item.data.client.displayName }} ({{ item.data.client.phoneNumber }})
+                </ion-label>
+
+                <ion-label color="dark">
+                    {{ item.data.destinataire.displayName }} ({{ item.data.destinataire.phoneNumber }})
+                </ion-label>
+
+                <ion-note>
+                    {{ item.data.trajet.distance.text }} ({{ item.data.payement.prix }} F CFA)
+                </ion-note>
+                <!-- <ion-buttons slot="end">
+                    <ion-button (click)="onShow(item.id)">
+                        <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons> -->
+
+            </ion-item>
+        </ion-list>
+    </ion-card>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="onAdd()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>
